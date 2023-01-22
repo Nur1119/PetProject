@@ -1,0 +1,159 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import javax.swing.*;
+import java.security.spec.KeySpec;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException { // Exception добавился на 12 уроке
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\User\\Desktop\\AT\\chromedriver.exe"); //скачали драйвер, который будет управлять нашим тестированием
+
+        WebDriver driver = new ChromeDriver(); // Создание объекта класса WebDriver
+        // driver.get("https://google.com"); // Вызов метода get у объекта driver для вывода страницы гугл через хром
+        // find element и  find elements - функции для поиска элементов
+        // f12 - открываем инструменты разработчика (devtools)
+        // поиск элементов проводится в DOM
+        // DOM - объектная модель документа
+        // Network - DOC - Response - ответ от сервера в DevTools
+        // Elements - объектная модель элемента
+        // WebElement input = driver.findElement(By.xpath("//input[@aria-label='Найти']")); // обращение к элементу по By.xpath. Все что внутри скобок - локатор
+        // input.click(); // кликаем
+        // в переменной input у нас хранится id данного элемента, который был сгенерирован хромом. то есть по нему мы можем найти данный элемент
+        // DOM - это древовидная структура, с которой и работает Selenium
+
+        // 4 урок - Локаторы
+        /* Локатор отвечает на два вопроса. Как искать ? И что искать ?
+        // Самым популярным и лучшим локатором является xpath
+        // 7 других локаторов: id, classname, cssSelector, linkText, name, partialLinkText, class
+        // WebElement inputs = driver.findElements(By.xpath("//input[@aria-label='Найти']")); - Поиск элементОВ по списку */
+
+        // 5 урок - cssSelector - поиск в DOM
+        /* Поиск по селекторам осуществляется через поисковую консоль
+        // $$("body") - В скобках пишется название селектора, например тэг body
+        // Следующий селектор поиска по id, то есть
+        // $$("#_iERIY42WJa2G9u8Pp4y-cA_1") - ставится решетка(она же обозначает id) и пишется сам id
+        // След селектор - class. Поиск по классам
+        // $$(".appbar") - ставится точка и потом пишется название класса
+        // Если мы хотим искать не по классу, а по его атрибуту, то мы пишем
+        // $$("[role='main']") - квадратные скобки и внутри название атрибута и через знак ровно пишем, что нас интересует в одинарных кавычках
+        // Необязательно писать значение main. Просто в данной ситуации будут искаться все элементы, у которого есть атрибут role
+        // $$("div[role]") - Мы можем спросить все divЫ, которые имею атрибут role
+        // $$("div[role*='ai']") - Если мы ищем элемент не зная полное название, то после role ставим звездочку
+        // $$("div[role^='ai']") - Поиск по первому символу
+        // $$("div[role$='ai']") - Поиск по последнему символу
+        // $$(".col.rhscol.rhstc5") - Комбинированный поиск с несколькими классами (точка перед классом)
+        // $$("div:not(.col)") - Поиск тэга, в котором не должно быть каких-то классов или атрибутов. То есть мы пишем not, а в скобках то, чего не должно быть внутри тэга
+        // $$("a:not(href^='http')") - Поиск ссылок, которые не имеют http в начале
+        // $$("div[jscontroller='TxZWcc'] div.liYKde")- Детальный поиск внутри какого-либо тэга. Сначала пишем главный тэг, а потом тэг внутри тэга
+        // $$("div[jscontroller='TxZWcc'] > div.liYKde")- Детальный поиск, но без глубокой вложенности
+        // $$("ul li:first-child") - Поиск порядкового номера у тэга, то есть конкретно первого "ребенка" тэга с конкретным именем в тэге ul
+        // $$("ul li:last-child") - Поиск порядкового номера у тэга, то есть конкретно последнего "ребенка" тэга с конкретным именем в тэге ul
+        // $$("ul li:nth-child(2)") - Поиск порядкового номера у тэга, то есть конкретно среднего "ребенка" (например 2)  тэга с конкретным именем в тэге ul */
+
+        // 6 урок. Ожидания в Selenium. Явные и неявные
+        // driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Задали неявное ожидание в 10 секунд - Устаревший метод
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); // Задали неявное ожидание в 10 секунд - Новый метод
+
+        // WebElement element = (new WebDriverWait(driver, Duration.ofSeconds(10))
+        //        .until(ExpectedConditions.presenceOfElementLocated(By.id("123"))));
+        // Создали явное ожидание. У нас запишется элемент с айди 123 и мы будем ожидать его появление 10 секунд
+
+        // Урок 7. Свойства атрибутов
+        // driver.get("https://www.avito.ru/");
+        // //a[text()='Одежда, обувь и аксессуары'] - Поиск по тексту в DevTools. Фильтр
+
+        // WebElement element1 = driver.findElement(By.xpath("//a[text()='Одежда, обувь и аксессуары']")); // Осуществляем поиск элемента
+        // String parametr = element1.getAttribute("offsetWidth"); // метод getAttribute берет не атрибут, а свойства атрибута
+        // System.out.println(parametr); // Вывелось значение свойства - 188
+        // В процессе поиска, свойства могут изменяться. Можно запросить одно, а получить другое !!!
+
+        // Урок 8. Получение текста getText
+        // Разобраться, как вызывать текст. Пока не получилось из-за разности информации на сайте авито
+
+        // Урок 9 - Автоматизация тестирования верстки + Урок 10 - Клик в браузере Click
+        /* Поиск по css стилям - DevTools-Elements-Styles-Используем название класса
+        driver.get("https://devby.io/");
+
+        WebElement element1 = driver.findElement(By.xpath("//a[text()='Вход']")); // Осуществляем поиск элемента (текста) по xPath
+
+        String par = element1.getCssValue("display"); // Используем метод CssValue и поиск по слову display
+        System.out.println(par); // Отразить на экран
+
+        String par2 = element1.getCssValue("transition"); // Используем метод CssValue и поиск по слову transition
+        System.out.println(par2); // Отразить на экран
+        // Чаще поиск проводят по классу, так как стили привязаны к классу
+
+        element1.click(); // Метод клик используется, если мы хотим кликнуть по конкретному элементу в какой-то момент
+        // В данному случае мы кликнули по кнопке Вход и включилось окно входа или авторизации
+        // Не всегда клик срабатывает. Например, если элемент не интерактивный
+        // или если мы перезапустили страницу и DOM изменился
+        // или если элемент невидимый */
+
+        // Урок 11 - Ввод текста в браузере SendKeys
+        // С помощью кнопки мышки в Elements(DT) находим оригинальный класс и атрибут и вставляем в поиск для проверки
+        // например //input[@data-marker='search-form/suggest']
+        // driver.get("https://www.ozon.ru/");
+
+        // WebElement element1 = driver.findElement(By.xpath("//input[@name='text']")); // Осуществляем поиск элемента (текста) по xPath
+
+        // String par = element1.getCssValue("display"); // Используем метод CssValue и поиск по слову display
+        // System.out.println(par); // Отразить на экран
+        // element1.sendKeys("Java", Keys.ENTER); // Таким образом мы отправили в поисковое окно сайта Озон слово Java
+        // и вызвали команду клавиатуры Enter
+        // SendKeys используется также для того, чтобы отправить файл на сервер (картинку загрузить)
+        // Для загрузки файла, нужно слово Java заменить полным путем до файла на компе и программа поймет
+        // Что это файл для загрузки
+
+        // 12 Урок - Actions
+
+        try {
+            driver.get("https://crossbrowsertesting.github.io/drag-and-drop");
+            Thread.sleep(2000); // Задержка на 2 секунды
+
+            WebElement element1 = driver.findElement(By.id("draggable")); // Осуществляем поиск элемента (id) по xPath
+            WebElement element2 = driver.findElement(By.id("droppable")); // Осуществляем поиск элемента (id) по xPath
+
+            Actions actions = new Actions(driver); // Создан объект класса Actions для более сложных операций. Передаем в него драйвер
+
+            actions
+                    .moveToElement(element1)         // Навели курсор
+                    .clickAndHold()                  // Кликнули и задержали
+                    .moveToElement(element2)         // Навели курсор на второй элемент
+                    .pause(1000)                     // Пауза в 1 секунду
+                    .release()                       // Отпустить курсор
+                    .build()                         // Собрать
+                    .perform();                      // Запустить
+            // Взяли один элемент и закинули его в другой
+
+            // actions.dragAndDrop(element1, element2) - упрощенный метод сделать все тоже самое, как в первом примере.
+            // actions.dragAndDropBy(element1, 100, 100) - переместить элемент на 100 пикселей по оси x и по оси y
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            Thread.sleep(20000); // Задержка на 20 секунд, чтобы сначала увидеть выполнение операции
+            driver.quit(); // Отключение драйвера, после выполнения операции
+        }
+
+        // element1.clear(); // метод очищает поле ввода, куда мы что-то ввели
+
+        // actions.contextClick(); // Вызов правой кнопкой мыши
+        /* actions
+                .moveToElement() // Навести курсор на элемент
+                .keyDown() // Нажатие на кнопку
+                .keyUp() // Убираем клик от кнопки
+                .clickAndHold() // Нажать на элемент и держать
+                .release() //отпустить элемент
+                .build(); // Собрать методы
+        // Конфигурирование (перетягивание элемента) можно произвести на сайте */
+    }
+}
